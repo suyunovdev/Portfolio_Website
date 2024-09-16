@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <div className="mt-[100px] mb-[100px] mx-10">{children}</div>
+        <div className="mt-16">{children}</div>
         <Footer />
       </body>
     </html>

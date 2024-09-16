@@ -5,49 +5,66 @@ import {
   FaRegUserCircle,
   FaTelegram,
 } from "react-icons/fa";
-
 import { TbBrandVercel } from "react-icons/tb";
 
 const Footer = () => {
   return (
-    <div className="flex justify-between items-center px-10 py-2 fixed bottom-0 left-0 right-0 z-50 bg-gray-200">
-      <div className="flex items-center gap-5 ">
-        <FaRegUserCircle className="text-3xl" />
-        <h1>Suyunov_dev</h1>
-      </div>
-      <div className="media flex gap-5 font-semibold">
-        <div className="text-3xl hover:scale-95 cursor-pointer ">
-          {" "}
-          <a href="https://github.com/suyunovdev">
-            {" "}
+    <footer className="bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white py-2 fixed bottom-0 left-0 ring-0 w-full">
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-6">
+        {/* Brand Section */}
+        <div className="flex items-center gap-4 mb-4 md:mb-0">
+          <FaRegUserCircle className="text-4xl hover:text-gray-400 transition-transform transform hover:scale-110" />
+          <h1 className="text-2xl font-bold tracking-wide">Suyunov_dev</h1>
+        </div>
+
+        {/* Social Media Links */}
+        <div className="flex gap-6 mb-4 md:mb-0">
+          <a
+            href="https://github.com/suyunovdev"
+            className="text-3xl hover:text-gray-400 transition-transform transform hover:scale-110"
+            aria-label="GitHub"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaGithub />
           </a>
-        </div>
-        <div className="text-3xl hover:scale-95 cursor-pointer ">
-          {" "}
-          <a href="https://vercel.com/suyunovdevs-projects">
-            {" "}
+          <a
+            href="https://vercel.com/suyunovdevs-projects"
+            className="text-3xl hover:text-gray-400 transition-transform transform hover:scale-110"
+            aria-label="Vercel"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <TbBrandVercel />
           </a>
-        </div>
-        <div className="text-3xl hover:scale-95 cursor-pointer">
-          {" "}
-          <a href="https://www.instagram.com/suyunovdev_01/">
-            {" "}
+          <a
+            href="https://www.instagram.com/suyunovdev_01/"
+            className="text-3xl hover:text-gray-400 transition-transform transform hover:scale-110"
+            aria-label="Instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaInstagram />
           </a>
-        </div>
-        <div className="text-3xl hover:scale-95 cursor-pointer">
-          {" "}
-          <a href="https://t.me/Uzbcoder_01">
+          <a
+            href="https://t.me/Uzbcoder_01"
+            className="text-3xl hover:text-gray-400 transition-transform transform hover:scale-110"
+            aria-label="Telegram"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaTelegram />
           </a>
         </div>
       </div>
-      <div>
-        <h1>All Rights Reserved </h1>
+      <div className="text-center">
+        <p className="text-sm">
+          &copy; {new Date().getFullYear()} Suyunov_dev. All Rights Reserved.
+        </p>
       </div>
-    </div>
+
+      {/* Footer Text */}
+    </footer>
   );
 };
 
