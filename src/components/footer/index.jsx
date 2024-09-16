@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import {
   FaGithub,
@@ -6,6 +7,7 @@ import {
   FaTelegram,
 } from "react-icons/fa";
 import { TbBrandVercel } from "react-icons/tb";
+import shaxsiy from "../../../public/shaxsiy.jpg";
 
 const Footer = () => {
   return (
@@ -13,7 +15,13 @@ const Footer = () => {
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-6">
         {/* Brand Section */}
         <div className="flex items-center gap-4 mb-4 md:mb-0">
-          <FaRegUserCircle className="text-4xl hover:text-gray-400 transition-transform transform hover:scale-110" />
+          <Image
+            src={shaxsiy}
+            alt="Logo"
+            width={50}
+            height={50}
+            className="rounded-full  transition-transform transform hover:scale-110"
+          />
           <h1 className="text-2xl font-bold tracking-wide">Suyunov_dev</h1>
         </div>
 

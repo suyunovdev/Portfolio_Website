@@ -18,7 +18,7 @@ const About = () => {
         {/* First Heading */}
         <h1
           data-aos="fade-right"
-          className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-700 tracking-wide hover:tracking-wider transition-all duration-500 ease-in-out"
+          className="text-5xl cursor-pointer font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-700 tracking-wide hover:tracking-wider transition-all duration-500 ease-in-out"
         >
           Hello I’m <strong className="text-purple-600">Ilyos Suyunov</strong>
         </h1>
@@ -26,7 +26,7 @@ const About = () => {
         {/* Second Heading */}
         <h1
           data-aos="fade-left"
-          className="text-4xl font-semibold text-gray-800 hover:text-purple-600 transition-colors duration-500 ease-in-out"
+          className="text-4xl cursor-pointer font-semibold text-gray-800 hover:text-purple-600 transition-colors duration-500 ease-in-out"
         >
           <strong className="text-indigo-600">Frontend</strong> Developer
         </h1>
@@ -34,7 +34,7 @@ const About = () => {
         {/* Third Heading */}
         <h1
           data-aos="fade-right"
-          className="text-4xl font-semibold text-gray-800 hover:text-indigo-600 transition-colors duration-500 ease-in-out"
+          className="text-4xl cursor-pointer font-semibold text-gray-800 hover:text-indigo-600 transition-colors duration-500 ease-in-out"
         >
           <strong className="text-purple-600">Web</strong> Designer
         </h1>

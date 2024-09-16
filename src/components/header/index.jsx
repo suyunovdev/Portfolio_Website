@@ -1,9 +1,11 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaDownload, FaRegUserCircle } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import shaxsiy from "../../../public/shaxsiy.jpg";
 
 const Header = () => {
   // Function to handle resume download and toast notification
@@ -32,7 +34,13 @@ const Header = () => {
         {/* Logo */}
         <Link href="/">
           <div className="flex items-center gap-3 cursor-pointer">
-            <FaRegUserCircle className="text-4xl text-white transition-transform transform hover:scale-110" />
+            <Image
+              src={shaxsiy}
+              alt="Logo"
+              width={50}
+              height={50}
+              className="rounded-full  transition-transform transform hover:scale-110"
+            />
             <h1 className="text-3xl font-semibold text-white transition-transform transform hover:scale-105">
               Personal
             </h1>

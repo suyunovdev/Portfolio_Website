@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// Initialize toast notifications
-
 const TELEGRAM_BOT_TOKEN = "7430613260:AAF5genP-qdz1uK0K7sQtT3-KYHu5iOoGgk"; // Replace with your bot token
 const TELEGRAM_CHAT_ID = "your-chat-id"; // Replace with your chat ID or group chat ID
 
@@ -16,7 +14,6 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -25,7 +22,6 @@ const Contact = () => {
     }));
   };
 
-  // Validate form before submission
   const validateForm = () => {
     const { name, email, message } = formData;
     if (!name || !email || !message) {
@@ -35,7 +31,6 @@ const Contact = () => {
       });
       return false;
     }
-    // Simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       toast.error("Please enter a valid email address.", {
@@ -47,10 +42,9 @@ const Contact = () => {
     return true;
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return; // Validate the form
+    if (!validateForm()) return;
     setIsSubmitting(true);
 
     const { name, email, message } = formData;
@@ -61,7 +55,6 @@ const Contact = () => {
       - Message: ${message}
     `;
 
-    // Telegram API URL
     const telegramURL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
     try {
@@ -71,7 +64,7 @@ const Contact = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID, // Replace with your chat ID
+          chat_id: TELEGRAM_CHAT_ID,
           text: messageText,
         }),
       });
@@ -80,14 +73,12 @@ const Contact = () => {
         throw new Error(`Telegram API error: ${response.status}`);
       }
 
-      // If success
       toast.success("Message sent successfully!", {
         position: "top-right",
         autoClose: 3000,
       });
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
-      // Handle errors
       toast.error("Failed to send message. Please try again.", {
         position: "top-right",
         autoClose: 3000,
@@ -99,75 +90,78 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold mb-8">Contact Us</h1>
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-lg bg-white p-8 rounded-lg shadow-md"
-      >
-        <div className="mb-6">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="name"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
-        <div className="mb-6">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="email"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
-        <div className="mb-6">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="message"
-          >
-            Message
-          </label>
-          <textarea
-            name="message"
-            id="message"
-            value={formData.message}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            rows="5"
-            required
-          />
-        </div>
-        <div className="flex items-center justify-between">
-          <button
-            type="submit"
-            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-              isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Sending..." : "Send Message"}
-          </button>
-        </div>
-      </form>
+    <div className="min-h-screen bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center py-12 px-4">
+      <div className="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full">
+        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+          Contact Us
+        </h1>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label
+              className="block text-gray-700 text-sm font-semibold mb-2"
+              htmlFor="name"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-500 transition-all"
+              required
+            />
+          </div>
+          <div>
+            <label
+              className="block text-gray-700 text-sm font-semibold mb-2"
+              htmlFor="email"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-500 transition-all"
+              required
+            />
+          </div>
+          <div>
+            <label
+              className="block text-gray-700 text-sm font-semibold mb-2"
+              htmlFor="message"
+            >
+              Message
+            </label>
+            <textarea
+              name="message"
+              id="message"
+              value={formData.message}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-500 transition-all"
+              rows="4"
+              required
+            />
+          </div>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className={`w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-all transform ${
+                isSubmitting
+                  ? "opacity-60 cursor-not-allowed"
+                  : "hover:scale-105"
+              }`}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Sending..." : "Send Message"}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
