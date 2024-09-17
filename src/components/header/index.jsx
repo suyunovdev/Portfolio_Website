@@ -39,7 +39,7 @@ const Header = () => {
               alt="Logo"
               width={50}
               height={50}
-              className="rounded-full  transition-transform transform hover:scale-110"
+              className="rounded-full"
             />
             <h1 className="text-3xl font-semibold text-white transition-transform transform hover:scale-105">
               Personal

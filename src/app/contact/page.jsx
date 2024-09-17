@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,6 +12,13 @@ const Contact = () => {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // AOS kutubxonasini ishga tushiramiz
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // animatsiya davomiyligi
+    });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,31 +53,36 @@ const Contact = () => {
     if (!validateForm()) return;
     setIsSubmitting(true);
 
-    // Instead of sending the data to Telegram API, just show a success message
     toast.success("Message sent successfully! (Simulated)", {
       position: "top-right",
       autoClose: 3000,
     });
 
-    // Reset the form
     setFormData({ name: "", email: "", message: "" });
 
     setIsSubmitting(false);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center py-12 px-4">
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-700 flex items-center justify-center py-12 px-4">
+      <div
+        className="relative bg-white/20 backdrop-blur-lg shadow-xl rounded-3xl p-10 max-w-lg w-full border border-white/20"
+        data-aos="fade-up"
+      >
+        <h1
+          className="text-4xl font-extrabold text-center mb-6 text-white"
+          data-aos="fade-right"
+        >
           Contact Us
         </h1>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
+
+        <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+          <div data-aos="fade-left">
             <label
-              className="block text-gray-700 text-sm font-semibold mb-2"
               htmlFor="name"
+              className="block text-sm font-semibold text-white tracking-wider mb-2"
             >
-              Name
+              Full Name
             </label>
             <input
               type="text"
@@ -76,16 +90,18 @@ const Contact = () => {
               id="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-500 transition-all"
+              className="w-full px-4 py-3 mt-1 text-white bg-transparent border border-white/30 rounded-lg focus:outline-none focus:ring-4 focus:ring-indigo-400 transition-all"
+              placeholder="Enter your full name"
               required
             />
           </div>
-          <div>
+
+          <div data-aos="fade-right">
             <label
-              className="block text-gray-700 text-sm font-semibold mb-2"
               htmlFor="email"
+              className="block text-sm font-semibold text-white tracking-wider mb-2"
             >
-              Email
+              Email Address
             </label>
             <input
               type="email"
@@ -93,14 +109,16 @@ const Contact = () => {
               id="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-500 transition-all"
+              className="w-full px-4 py-3 mt-1 text-white bg-transparent border border-white/30 rounded-lg focus:outline-none focus:ring-4 focus:ring-indigo-400 transition-all"
+              placeholder="you@example.com"
               required
             />
           </div>
-          <div>
+
+          <div data-aos="fade-left">
             <label
-              className="block text-gray-700 text-sm font-semibold mb-2"
               htmlFor="message"
+              className="block text-sm font-semibold text-white tracking-wider mb-2"
             >
               Message
             </label>
@@ -109,15 +127,17 @@ const Contact = () => {
               id="message"
               value={formData.message}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-500 transition-all"
               rows="4"
+              className="w-full px-4 py-3 mt-1 text-white bg-transparent border border-white/30 rounded-lg focus:outline-none focus:ring-4 focus:ring-indigo-400 transition-all"
+              placeholder="Your message here..."
               required
-            />
+            ></textarea>
           </div>
-          <div className="flex justify-center">
+
+          <div className="flex justify-center" data-aos="zoom-in">
             <button
               type="submit"
-              className={`w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-all transform ${
+              className={`w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-purple-600 hover:to-pink-500 text-white font-bold py-3 rounded-lg shadow-lg transition-all transform hover:scale-105 ${
                 isSubmitting
                   ? "opacity-60 cursor-not-allowed"
                   : "hover:scale-105"
@@ -128,6 +148,9 @@ const Contact = () => {
             </button>
           </div>
         </form>
+
+        {/* Yorqin gradient background */}
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-600 to-pink-500 rounded-lg blur-xl opacity-30"></div>
       </div>
     </div>
   );

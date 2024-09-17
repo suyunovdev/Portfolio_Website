@@ -1,7 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/header";
-// import Footer from "@/components/footer";
+import Header from "@/components/header"; // Header ichida dark mode bo'ladi
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,10 +12,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-white dark:bg-gray-900`}>
         <Header />
-        <div className="mt-16">{children}</div>
-        {/* <Footer /> */}
+        <div className="mt-16 text-black dark:text-white">{children}</div>
       </body>
     </html>
   );
