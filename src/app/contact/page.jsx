@@ -3,9 +3,6 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const TELEGRAM_BOT_TOKEN = "7430613260:AAF5genP-qdz1uK0K7sQtT3-KYHu5iOoGgk"; // Replace with your bot token
-const TELEGRAM_CHAT_ID = "your-chat-id"; // Replace with your chat ID or group chat ID
-
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -47,46 +44,16 @@ const Contact = () => {
     if (!validateForm()) return;
     setIsSubmitting(true);
 
-    const { name, email, message } = formData;
-    const messageText = `
-      New Contact Form Submission:
-      - Name: ${name}
-      - Email: ${email}
-      - Message: ${message}
-    `;
+    // Instead of sending the data to Telegram API, just show a success message
+    toast.success("Message sent successfully! (Simulated)", {
+      position: "top-right",
+      autoClose: 3000,
+    });
 
-    const telegramURL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    // Reset the form
+    setFormData({ name: "", email: "", message: "" });
 
-    try {
-      const response = await fetch(telegramURL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: messageText,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Telegram API error: ${response.status}`);
-      }
-
-      toast.success("Message sent successfully!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      setFormData({ name: "", email: "", message: "" });
-    } catch (error) {
-      toast.error("Failed to send message. Please try again.", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      console.error("Telegram API error:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
+    setIsSubmitting(false);
   };
 
   return (
