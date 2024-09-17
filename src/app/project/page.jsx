@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 const projects = [
@@ -104,9 +105,11 @@ const Project = () => {
               className="bg-white border border-gray-200 shadow-lg rounded-lg p-6 transform hover:scale-105 transition-transform duration-300 hover:shadow-2xl"
             >
               {project.img && (
-                <img
+                <Image
                   src={project.img}
-                  alt={project.name}
+                  alt={projects.name}
+                  width={400}
+                  height={225}
                   className="w-full h-40 object-cover rounded-t-lg mb-4"
                 />
               )}

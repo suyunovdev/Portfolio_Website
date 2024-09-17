@@ -32,7 +32,7 @@ const Portfolio = () => {
         ></Image>{" "}
         {/* Main Text */}
         <h1 className="text-5xl font-extrabold tracking-wide leading-tight">
-          Hello, I'm Ilyos!
+          Hello, I`m Ilyos!
         </h1>
         <p
           className="text-lg font-medium tracking-wide leading-relaxed text-gray-200 max-w-3xl"
