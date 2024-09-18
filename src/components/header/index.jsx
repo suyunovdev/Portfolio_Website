@@ -42,7 +42,7 @@ const Header = () => {
               className="rounded-full"
             />
             <h1 className="text-3xl font-semibold text-white transition-transform transform hover:scale-105">
-              Personal
+              Suyunovdev
             </h1>
           </div>
         </Link>
