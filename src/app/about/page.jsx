@@ -1,12 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import {
-  FaFacebookSquare,
-  FaGithub,
-  FaInstagram,
-  FaTelegram,
-  FaYoutube,
-} from "react-icons/fa";
+import { FaGithub, FaInstagram, FaTelegram, FaYoutube } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import the AOS styles
 
@@ -21,7 +15,6 @@ const About = () => {
       className="flex items-center justify-center w-full h-screen pt-12 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-center"
     >
       <div className="left w-[80%] md:w-[60%] lg:w-[50%] p-6 gap-5  flex flex-col bg-white rounded-lg shadow-2xl bg-opacity-80 backdrop-blur-md">
-        {/* First Heading */}
         <h1
           data-aos="fade-right"
           className="text-5xl cursor-pointer font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-700 tracking-wide hover:tracking-wider transition-all duration-500 ease-in-out"
@@ -29,7 +22,6 @@ const About = () => {
           Hello I`m <strong className="text-purple-600">Ilyos Suyunov</strong>
         </h1>
 
-        {/* Second Heading */}
         <h1
           data-aos="fade-left"
           className="text-4xl cursor-pointer font-semibold text-gray-800 hover:text-purple-600 transition-colors duration-500 ease-in-out"
@@ -37,7 +29,6 @@ const About = () => {
           <strong className="text-indigo-600">Frontend</strong> Developer
         </h1>
 
-        {/* Third Heading */}
         <h1
           data-aos="fade-right"
           className="text-4xl cursor-pointer font-semibold text-gray-800 hover:text-indigo-600 transition-colors duration-500 ease-in-out"
@@ -45,17 +36,15 @@ const About = () => {
           <strong className="text-purple-600">Web</strong> Designer
         </h1>
 
-        {/* Paragraph */}
         <p
           data-aos="fade-up"
           className="text-lg leading-relaxed text-gray-600 hover:text-gray-800 transition-colors duration-500"
         >
-          I’m Suyunov Ilyos, a passionate developer with a keen eye for design.
+          I`m Suyunov Ilyos, a passionate developer with a keen eye for design.
           I have been in the web industry for years, constantly honing my skills
           to create visually stunning and functional websites.
         </p>
 
-        {/* Social Icons */}
         <div className="flex justify-center gap-6 mt-4">
           <a
             href="https://github.com/suyunovdev"

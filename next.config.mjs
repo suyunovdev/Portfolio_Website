@@ -9,7 +9,8 @@ const nextConfig = {
       "www.webpackaging.com",
       "ui-lib.com",
       "s3.amazonaws.com",
-      "mir-s3-cdn-cf.behance.net", // 6-rasmning domeni
+      "mir-s3-cdn-cf.behance.net",
+      "habrastorage.org", // 6-rasmning domeni
     ],
   },
 };

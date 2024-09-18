@@ -93,6 +93,17 @@ const projects = [
     forks: 20,
     stars: 100,
   },
+  {
+    id: 6,
+    img: "https://habrastorage.org/getpro/freelansim/allfiles/117/1179/1179815/90f37816ef.jpg",
+    name: "Okoprom",
+    description: "This is Okoprom Website",
+    url: "https://github.com/suyunovdev/Okoprom",
+    liveUrl: "https://okoprom.vercel.app/",
+    language: "HTML,CSS,JS",
+    forks: 20,
+    stars: 100,
+  },
 ];
 
 const Project = () => {
