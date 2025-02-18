@@ -104,6 +104,28 @@ const projects = [
     forks: 20,
     stars: 100,
   },
+  {
+    id: 6,
+    img: "https://media.istockphoto.com/id/2172944731/photo/man-holding-us-permanent-resident-with-his-hand-immigration-concept.jpg?s=612x612&w=0&k=20&c=t0rUcfNxIxMj5RH3dRM6Y8i7lq0WuK3VI7Sl7W-b4HI=",
+    name: "Green Card",
+    description: "This is Green Card Website",
+    url: "https://github.com/suyunovdev/Green_Card.git",
+    liveUrl: "https://green-card-chi.vercel.app/",
+    language: "Ract JS , Tailwind CSS",
+    forks: 20,
+    stars: 100,
+  },
+  {
+    id: 6,
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-mmavlebRMofFOlALIYjcJ_vUKj05rCjEvA&s",
+    name: "Gennis Campus",
+    description: "This is Gennis Campus Website",
+    url: "https://github.com/suyunovdev/Gennis-Campus.git",
+    liveUrl: "https://gennis-campus.vercel.app/",
+    language: "Ract JS , Tailwind CSS",
+    forks: 20,
+    stars: 100,
+  },
 ];
 
 const Project = () => {

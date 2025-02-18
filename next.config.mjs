@@ -11,6 +11,8 @@ const nextConfig = {
       "s3.amazonaws.com",
       "mir-s3-cdn-cf.behance.net",
       "habrastorage.org", // 6-rasmning domeni
+      "media.istockphoto.com", // 7-rasmning domeni
+      "encrypted-tbn0.gstatic.com", // 8-rasmning domeni
     ],
   },
 };

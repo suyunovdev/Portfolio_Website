@@ -23,7 +23,7 @@ const Header = () => {
 
     // Redirect to external link
     window.open(
-      "https://www.canva.com/design/DAGJDY9zWUk/gzDb4IFfwjyywoXWxPNL0w/view",
+      "https://www.canva.com/design/DAGJDY9zWUk/X4Hgxle4jKp1TBVTYuS_Aw/edit?utm_content=DAGJDY9zWUk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
       "_blank"
     ); // Opens in a new tab
   };

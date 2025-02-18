@@ -18,7 +18,12 @@ import {
   SiShadcnui,
   SiNetlify,
   SiFigma,
+  SiTildapublishing,
   SiScratch,
+  SiArduino,
+  SiPhotopea,
+  SiTinkercad,
+  SiVectary,
 } from "react-icons/si";
 import { RiTailwindCssFill, RiNextjsFill } from "react-icons/ri";
 import { TiHtml5 } from "react-icons/ti";
@@ -54,6 +59,11 @@ const Skills = () => {
           { Icon: SiNetlify, name: "Netlify" },
           { Icon: SiFigma, name: "Figma" },
           { Icon: SiScratch, name: "Scratch" },
+          { Icon: SiTildapublishing, name: "Tilda" },
+          { Icon: SiArduino, name: "Arduino" },
+          { Icon: SiPhotopea, name: "Photopea" },
+          { Icon: SiTinkercad, name: "Tinkercad" },
+          { Icon: SiVectary, name: "Vectary" },
         ].map((skill, index) => (
           <div
             key={index}
