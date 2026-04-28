@@ -1,18 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      "eu-cap-network.ec.europa.eu", // 1-rasmning domeni
-      "imageio.forbes.com", // 2-3-4-rasmlar domeni
-      "kslux.uz",
-      "img.goodfon.ru",
-      "www.webpackaging.com",
-      "ui-lib.com",
-      "s3.amazonaws.com",
-      "mir-s3-cdn-cf.behance.net",
-      "habrastorage.org", // 6-rasmning domeni
-      "media.istockphoto.com", // 7-rasmning domeni
-      "encrypted-tbn0.gstatic.com", // 8-rasmning domeni
+    remotePatterns: [
+      { protocol: "https", hostname: "**.vercel.app" },
     ],
   },
 };

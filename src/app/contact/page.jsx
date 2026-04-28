@@ -1,159 +1,223 @@
 "use client";
-import { useState, useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import { toast } from "react-toastify";
+
+import { useState, useRef } from "react";
+import { motion } from "framer-motion";
+import { FiSend, FiMail, FiUser, FiMessageSquare } from "react-icons/fi";
+import emailjs from "@emailjs/browser";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { socialLinks } from "@/data/social-links";
+import SectionHeading from "@/components/ui/section-heading";
+import MotionWrapper from "@/components/ui/motion-wrapper";
 
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+// EmailJS credentials — replace with your own from https://emailjs.com
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY";
 
-  // AOS kutubxonasini ishga tushiramiz
-  useEffect(() => {
-    AOS.init({
-      duration: 1000, // animatsiya davomiyligi
-    });
-  }, []);
+export default function ContactPage() {
+  const formRef = useRef(null);
+  const [sending, setSending] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const validateForm = () => {
-    const { name, email, message } = formData;
-    if (!name || !email || !message) {
-      toast.error("Please fill in all the fields.", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      return false;
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      toast.error("Please enter a valid email address.", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      return false;
-    }
-    return true;
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
-    setIsSubmitting(true);
+    if (sending) return;
+    setSending(true);
 
-    toast.success("Message sent successfully! (Simulated)", {
-      position: "top-right",
-      autoClose: 3000,
-    });
-
-    setFormData({ name: "", email: "", message: "" });
-
-    setIsSubmitting(false);
+    try {
+      if (EMAILJS_SERVICE_ID === "YOUR_SERVICE_ID") {
+        // Demo mode — no real EmailJS configured
+        await new Promise((r) => setTimeout(r, 1000));
+        toast.success("Message sent successfully! (Demo mode)");
+      } else {
+        await emailjs.sendForm(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          formRef.current,
+          EMAILJS_PUBLIC_KEY
+        );
+        toast.success("Message sent successfully!");
+      }
+      setForm({ name: "", email: "", message: "" });
+    } catch {
+      toast.error("Failed to send message. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-700 flex items-center justify-center py-12 px-4">
-      <div
-        className="relative bg-white/20 backdrop-blur-lg shadow-xl rounded-3xl p-10 max-w-lg w-full border border-white/20"
-        data-aos="fade-up"
-      >
-        <h1
-          className="text-4xl font-extrabold text-center mb-6 text-white"
-          data-aos="fade-right"
-        >
-          Contact Us
-        </h1>
+    <section className="section-padding">
+      <div className="max-w-5xl mx-auto">
+        <SectionHeading
+          title="Get In Touch"
+          subtitle="Have a project in mind or want to collaborate? I'd love to hear from you."
+        />
 
-        <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-          <div data-aos="fade-left">
-            <label
-              htmlFor="name"
-              className="block text-sm font-semibold text-white tracking-wider mb-2"
-            >
-              Full Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-4 py-3 mt-1 text-white bg-transparent border border-white/30 rounded-lg focus:outline-none focus:ring-4 focus:ring-indigo-400 transition-all"
-              placeholder="Enter your full name"
-              required
-            />
+        <div className="grid md:grid-cols-5 gap-12">
+          {/* Info Side */}
+          <div className="md:col-span-2 space-y-8">
+            <MotionWrapper variant="slideLeft">
+              <div className="glass rounded-2xl p-6 space-y-6">
+                <div>
+                  <h3 className="text-lg font-bold mb-1">Let&apos;s Talk</h3>
+                  <p className="text-sm text-[var(--text-secondary)]">
+                    Feel free to reach out through the form or find me on social
+                    media.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-primary-500/10">
+                      <FiMail className="w-5 h-5 text-primary-500" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-[var(--text-secondary)]">Email</p>
+                      <p className="text-sm font-medium">ilyossuyunov416@gmail.com</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-3 pt-2">
+                  {socialLinks.slice(0, 4).map((link) => (
+                    <a
+                      key={link.name}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.name}
+                      className="p-2.5 rounded-xl glass text-[var(--text-secondary)] hover:text-primary-500 hover:scale-110 transition-all"
+                    >
+                      <link.icon className="w-5 h-5" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </MotionWrapper>
           </div>
 
-          <div data-aos="fade-right">
-            <label
-              htmlFor="email"
-              className="block text-sm font-semibold text-white tracking-wider mb-2"
-            >
-              Email Address
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-4 py-3 mt-1 text-white bg-transparent border border-white/30 rounded-lg focus:outline-none focus:ring-4 focus:ring-indigo-400 transition-all"
-              placeholder="you@example.com"
-              required
-            />
-          </div>
+          {/* Form Side */}
+          <div className="md:col-span-3">
+            <MotionWrapper variant="slideRight">
+              <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className="glass rounded-2xl p-6 sm:p-8 space-y-5"
+              >
+                {/* Name */}
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium mb-2">
+                    Full Name
+                  </label>
+                  <div className="relative">
+                    <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-secondary)]" />
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      value={form.name}
+                      onChange={handleChange}
+                      required
+                      placeholder="John Doe"
+                      className="input-field pl-11"
+                    />
+                  </div>
+                </div>
 
-          <div data-aos="fade-left">
-            <label
-              htmlFor="message"
-              className="block text-sm font-semibold text-white tracking-wider mb-2"
-            >
-              Message
-            </label>
-            <textarea
-              name="message"
-              id="message"
-              value={formData.message}
-              onChange={handleChange}
-              rows="4"
-              className="w-full px-4 py-3 mt-1 text-white bg-transparent border border-white/30 rounded-lg focus:outline-none focus:ring-4 focus:ring-indigo-400 transition-all"
-              placeholder="Your message here..."
-              required
-            ></textarea>
-          </div>
+                {/* Email */}
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                    Email Address
+                  </label>
+                  <div className="relative">
+                    <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-secondary)]" />
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      required
+                      placeholder="john@example.com"
+                      className="input-field pl-11"
+                    />
+                  </div>
+                </div>
 
-          <div className="flex justify-center" data-aos="zoom-in">
-            <button
-              type="submit"
-              className={`w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-purple-600 hover:to-pink-500 text-white font-bold py-3 rounded-lg shadow-lg transition-all transform hover:scale-105 ${
-                isSubmitting
-                  ? "opacity-60 cursor-not-allowed"
-                  : "hover:scale-105"
-              }`}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Sending..." : "Send Message"}
-            </button>
-          </div>
-        </form>
+                {/* Message */}
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium mb-2">
+                    Message
+                  </label>
+                  <div className="relative">
+                    <FiMessageSquare className="absolute left-4 top-4 w-4 h-4 text-[var(--text-secondary)]" />
+                    <textarea
+                      name="message"
+                      id="message"
+                      rows="5"
+                      value={form.message}
+                      onChange={handleChange}
+                      required
+                      placeholder="Tell me about your project..."
+                      className="input-field pl-11 resize-none"
+                    />
+                  </div>
+                </div>
 
-        {/* Yorqin gradient background */}
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-600 to-pink-500 rounded-lg blur-xl opacity-30"></div>
+                {/* Submit */}
+                <motion.button
+                  type="submit"
+                  disabled={sending}
+                  className="btn-primary w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {sending ? (
+                    <>
+                      <svg
+                        className="animate-spin w-5 h-5"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                        />
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <FiSend className="w-5 h-5" />
+                      Send Message
+                    </>
+                  )}
+                </motion.button>
+              </form>
+            </MotionWrapper>
+          </div>
+        </div>
       </div>
-    </div>
-  );
-};
 
-export default Contact;
+      <ToastContainer
+        position="bottom-right"
+        theme="colored"
+        autoClose={3000}
+      />
+    </section>
+  );
+}

@@ -1,93 +1,97 @@
 "use client";
-import React, { useEffect } from "react";
-import { FaGithub, FaInstagram, FaTelegram, FaYoutube } from "react-icons/fa";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
-const About = () => {
-  useEffect(() => {
-    AOS.init({ duration: 1200, easing: "ease-in-out" });
-  }, []);
+import Image from "next/image";
+import { socialLinks } from "@/data/social-links";
+import MotionWrapper from "@/components/ui/motion-wrapper";
+import SectionHeading from "@/components/ui/section-heading";
+import shaxsiy from "../../../public/shaxsiy.jpg";
 
+const highlights = [
+  { label: "Specialization", value: "Fullstack Development" },
+  { label: "Frontend", value: "React & Next.js" },
+  { label: "Backend", value: "Node.js & Express" },
+  { label: "Database", value: "MongoDB & PostgreSQL" },
+];
+
+export default function AboutPage() {
   return (
-    <section
-      data-aos="fade-up"
-      className="flex items-center justify-center min-h-screen pt-20 px-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
-    >
-      <div className="w-full max-w-3xl p-8 sm:p-10 md:p-12 bg-white/80 rounded-2xl shadow-2xl backdrop-blur-md border border-white/40">
-        {/* Title */}
-        <h1
-          data-aos="fade-right"
-          className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-700 text-center mb-6"
-        >
-          Hello, I’m <span className="text-purple-600">Ilyos Suyunov</span> 👋
-        </h1>
+    <section className="section-padding">
+      <div className="max-w-5xl mx-auto">
+        <SectionHeading
+          title="About Me"
+          subtitle="Get to know who I am and what drives my passion for web development."
+        />
 
-        {/* Subtitle */}
-        <h2
-          data-aos="fade-left"
-          className="text-2xl sm:text-3xl font-semibold text-gray-800 text-center mb-2"
-        >
-          <span className="text-indigo-600">Frontend</span> Developer
-        </h2>
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* Image */}
+          <MotionWrapper variant="slideLeft">
+            <div className="relative group">
+              <div className="absolute -inset-4 gradient-bg rounded-2xl opacity-20 blur-xl group-hover:opacity-30 transition-opacity" />
+              <Image
+                src={shaxsiy}
+                alt="Ilyos Suyunov"
+                width={400}
+                height={400}
+                className="relative rounded-2xl shadow-2xl w-full object-cover aspect-square"
+              />
+            </div>
+          </MotionWrapper>
 
-        <h2
-          data-aos="fade-right"
-          className="text-2xl sm:text-3xl font-semibold text-gray-800 text-center mb-6"
-        >
-          <span className="text-purple-600">Web</span> Designer
-        </h2>
+          {/* Content */}
+          <div>
+            <MotionWrapper variant="slideRight">
+              <h3 className="text-3xl font-bold mb-2">
+                Ilyos <span className="gradient-text">Suyunov</span>
+              </h3>
+              <p className="text-primary-500 font-medium text-lg mb-6">
+                Fullstack Developer
+              </p>
+            </MotionWrapper>
 
-        {/* Description */}
-        <p
-          data-aos="fade-up"
-          className="text-base sm:text-lg leading-relaxed text-gray-700 text-center mb-6"
-        >
-          I’m a passionate developer with a strong focus on creating{" "}
-          <span className="font-semibold text-indigo-600">
-            modern and responsive websites
-          </span>
-          . My goal is to blend functionality with beautiful design while
-          constantly improving my skills.
-        </p>
+            <MotionWrapper variant="fadeUp" custom={1}>
+              <p className="text-[var(--text-secondary)] leading-relaxed mb-6">
+                I&apos;m a passionate fullstack developer who builds complete web
+                applications from the ground up. On the frontend I work with
+                React and Next.js; on the backend I use Node.js, Express, and
+                MongoDB to create robust APIs and services. I enjoy turning
+                complex ideas into scalable, real-world products.
+              </p>
+            </MotionWrapper>
 
-        {/* Social Links */}
-        <div
-          data-aos="zoom-in"
-          className="flex justify-center flex-wrap gap-6 mt-4"
-        >
-          <a
-            href="https://github.com/suyunovdev"
-            target="_blank"
-            className="text-3xl p-3 rounded-full bg-white/70 shadow-lg text-gray-800 hover:bg-indigo-500 hover:text-white transition-all transform hover:scale-110 ring-2 ring-white/40"
-          >
-            <FaGithub />
-          </a>
-          <a
-            href="https://www.youtube.com/@Frontend.dars_1"
-            target="_blank"
-            className="text-3xl p-3 rounded-full bg-white/70 shadow-lg text-red-600 hover:bg-red-500 hover:text-white transition-all transform hover:scale-110 ring-2 ring-white/40"
-          >
-            <FaYoutube />
-          </a>
-          <a
-            href="https://www.instagram.com/suyunovdev_01/"
-            target="_blank"
-            className="text-3xl p-3 rounded-full bg-white/70 shadow-lg text-pink-500 hover:bg-pink-600 hover:text-white transition-all transform hover:scale-110 ring-2 ring-white/40"
-          >
-            <FaInstagram />
-          </a>
-          <a
-            href="https://t.me/suyunovdev_01"
-            target="_blank"
-            className="text-3xl p-3 rounded-full bg-white/70 shadow-lg text-sky-500 hover:bg-sky-600 hover:text-white transition-all transform hover:scale-110 ring-2 ring-white/40"
-          >
-            <FaTelegram />
-          </a>
+            {/* Highlights */}
+            <div className="grid grid-cols-2 gap-3 mb-8">
+              {highlights.map((item, i) => (
+                <MotionWrapper key={item.label} variant="scaleIn" custom={i + 2}>
+                  <div className="glass rounded-xl p-3">
+                    <p className="text-xs text-[var(--text-secondary)] mb-0.5">
+                      {item.label}
+                    </p>
+                    <p className="font-semibold text-sm">{item.value}</p>
+                  </div>
+                </MotionWrapper>
+              ))}
+            </div>
+
+            {/* Social Links */}
+            <MotionWrapper variant="fadeUp" custom={4}>
+              <div className="flex gap-3">
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.name}
+                    className="p-3 rounded-xl glass text-[var(--text-secondary)] hover:text-primary-500 hover:scale-110 transition-all"
+                  >
+                    <link.icon className="w-5 h-5" />
+                  </a>
+                ))}
+              </div>
+            </MotionWrapper>
+          </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default About;
+}

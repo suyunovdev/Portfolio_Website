@@ -1,83 +1,58 @@
 "use client";
-import React from "react";
-import {
-  FaBootstrap,
-  FaGitAlt,
-  FaGithub,
-  FaReact,
-  FaSass,
-} from "react-icons/fa";
-import {
-  SiAntdesign,
-  SiJavascript,
-  SiMui,
-  SiTypescript,
-  SiRedux,
-  SiVercel,
-  SiCss3,
-  SiShadcnui,
-  SiNetlify,
-  SiFigma,
-  SiTildapublishing,
-  SiScratch,
-  SiArduino,
-  SiPhotopea,
-  SiTinkercad,
-  SiVectary,
-} from "react-icons/si";
-import { RiTailwindCssFill, RiNextjsFill } from "react-icons/ri";
-import { TiHtml5 } from "react-icons/ti";
 
-const Skills = () => {
+import { skillCategories } from "@/data/skills";
+import MotionWrapper from "@/components/ui/motion-wrapper";
+import SectionHeading from "@/components/ui/section-heading";
+
+export default function SkillsPage() {
   return (
-    <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-b from-gray-100 via-purple-50 to-gray-200 py-16">
-      {/* Title */}
-      <h1 className="text-5xl font-bold mb-10 text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600">
-        My <span className="text-6xl font-semibold">Skills</span>
-      </h1>
+    <section className="section-padding">
+      <div className="max-w-5xl mx-auto">
+        <SectionHeading
+          title="My Skills"
+          subtitle="Technologies and tools I use to bring ideas to life."
+        />
 
-      {/* Skills Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-10 p-10">
-        {/* Skill Card */}
-        {[
-          { Icon: SiJavascript, name: "JavaScript" },
-          { Icon: SiTypescript, name: "TypeScript" },
-          { Icon: RiNextjsFill, name: "Next.js" },
-          { Icon: FaReact, name: "React" },
-          { Icon: SiRedux, name: "Redux" },
-          { Icon: TiHtml5, name: "HTML5" },
-          { Icon: RiTailwindCssFill, name: "Tailwind CSS" },
-          { Icon: FaBootstrap, name: "Bootstrap" },
-          { Icon: FaSass, name: "Sass/Scss" },
-          { Icon: SiCss3, name: "CSS" },
-          { Icon: SiMui, name: "MUI" },
-          { Icon: SiAntdesign, name: "Ant Design" },
-          { Icon: SiShadcnui, name: "Shadcn UI" },
-          { Icon: SiVercel, name: "Vercel" },
-          { Icon: FaGitAlt, name: "Git" },
-          { Icon: FaGithub, name: "GitHub" },
-          { Icon: SiNetlify, name: "Netlify" },
-          { Icon: SiFigma, name: "Figma" },
-          { Icon: SiScratch, name: "Scratch" },
-          { Icon: SiTildapublishing, name: "Tilda" },
-          { Icon: SiArduino, name: "Arduino" },
-          { Icon: SiPhotopea, name: "Photopea" },
-          { Icon: SiTinkercad, name: "Tinkercad" },
-          { Icon: SiVectary, name: "Vectary" },
-        ].map((skill, index) => (
-          <div
-            key={index}
-            className="w-40 h-40 flex items-center justify-center flex-col bg-white border-2 border-gray-300 shadow-lg rounded-xl cursor-pointer transform hover:scale-105 transition-transform duration-300 hover:shadow-2xl hover:border-indigo-500 hover:bg-gradient-to-r from-purple-500 to-indigo-500 group"
-          >
-            <skill.Icon className="text-5xl mb-3 text-indigo-500 group-hover:text-white transition-colors duration-300" />
-            <h2 className="text-lg font-semibold text-gray-700 group-hover:text-white transition-colors duration-300">
-              {skill.name}
-            </h2>
-          </div>
-        ))}
+        <div className="space-y-16">
+          {skillCategories.map((category, catIdx) => (
+            <div key={category.title}>
+              <MotionWrapper custom={catIdx}>
+                <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
+                  <span className="w-8 h-1 rounded-full gradient-bg" />
+                  {category.title}
+                </h3>
+              </MotionWrapper>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                {category.skills.map((skill, i) => (
+                  <MotionWrapper
+                    key={skill.name}
+                    variant="scaleIn"
+                    custom={i}
+                  >
+                    <div className="group glass rounded-xl p-5 flex flex-col items-center gap-3 hover-lift cursor-default">
+                      <div
+                        className="p-3 rounded-xl transition-all duration-300 group-hover:scale-110"
+                        style={{
+                          backgroundColor: `${skill.color}15`,
+                        }}
+                      >
+                        <skill.icon
+                          className="w-8 h-8 transition-colors duration-300"
+                          style={{ color: skill.color }}
+                        />
+                      </div>
+                      <span className="text-sm font-medium text-center">
+                        {skill.name}
+                      </span>
+                    </div>
+                  </MotionWrapper>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default Skills;
+}
