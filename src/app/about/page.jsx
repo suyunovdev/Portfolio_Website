@@ -4,22 +4,26 @@ import Image from "next/image";
 import { socialLinks } from "@/data/social-links";
 import MotionWrapper from "@/components/ui/motion-wrapper";
 import SectionHeading from "@/components/ui/section-heading";
+import { useLang } from "@/context/language-context";
+import t from "@/data/translations";
 import shaxsiy from "../../../public/shaxsiy.jpg";
 
-const highlights = [
-  { label: "Specialization", value: "Fullstack Development" },
-  { label: "Frontend", value: "React & Next.js" },
-  { label: "Backend", value: "Node.js & Express" },
-  { label: "Database", value: "MongoDB & PostgreSQL" },
-];
-
 export default function AboutPage() {
+  const { lang } = useLang();
+
+  const highlights = [
+    t.about.highlights.specialization,
+    t.about.highlights.frontend,
+    t.about.highlights.backend,
+    t.about.highlights.database,
+  ];
+
   return (
     <section className="section-padding">
       <div className="max-w-5xl mx-auto">
         <SectionHeading
-          title="About Me"
-          subtitle="Get to know who I am and what drives my passion for web development."
+          title={t.about.title[lang]}
+          subtitle={t.about.subtitle[lang]}
         />
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -44,29 +48,25 @@ export default function AboutPage() {
                 Ilyos <span className="gradient-text">Suyunov</span>
               </h3>
               <p className="text-primary-500 font-medium text-lg mb-6">
-                Fullstack Developer
+                {t.about.role[lang]}
               </p>
             </MotionWrapper>
 
             <MotionWrapper variant="fadeUp" custom={1}>
               <p className="text-[var(--text-secondary)] leading-relaxed mb-6">
-                I&apos;m a passionate fullstack developer who builds complete web
-                applications from the ground up. On the frontend I work with
-                React and Next.js; on the backend I use Node.js, Express, and
-                MongoDB to create robust APIs and services. I enjoy turning
-                complex ideas into scalable, real-world products.
+                {t.about.bio[lang]}
               </p>
             </MotionWrapper>
 
             {/* Highlights */}
             <div className="grid grid-cols-2 gap-3 mb-8">
               {highlights.map((item, i) => (
-                <MotionWrapper key={item.label} variant="scaleIn" custom={i + 2}>
+                <MotionWrapper key={item.label[lang]} variant="scaleIn" custom={i + 2}>
                   <div className="glass rounded-xl p-3">
                     <p className="text-xs text-[var(--text-secondary)] mb-0.5">
-                      {item.label}
+                      {item.label[lang]}
                     </p>
-                    <p className="font-semibold text-sm">{item.value}</p>
+                    <p className="font-semibold text-sm">{item.value[lang]}</p>
                   </div>
                 </MotionWrapper>
               ))}

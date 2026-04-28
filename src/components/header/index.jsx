@@ -6,21 +6,25 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiMenu, FiX, FiDownload } from "react-icons/fi";
 import ThemeToggle from "@/components/ui/theme-toggle";
+import LanguageSwitcher from "@/components/ui/language-switcher";
+import { useLang } from "@/context/language-context";
+import t from "@/data/translations";
 import shaxsiy from "../../../public/shaxsiy.jpg";
-
-const navLinks = [
-  { href: "/about", label: "About" },
-  { href: "/skills", label: "Skills" },
-  { href: "/projects", label: "Projects" },
-  { href: "/contact", label: "Contact" },
-];
 
 const RESUME_URL =
   "https://www.canva.com/design/DAGJDY9zWUk/X4Hgxle4jKp1TBVTYuS_Aw/edit?utm_content=DAGJDY9zWUk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton";
 
 export default function Header() {
+  const { lang } = useLang();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const navLinks = [
+    { href: "/about", label: t.nav.about[lang] },
+    { href: "/skills", label: t.nav.skills[lang] },
+    { href: "/projects", label: t.nav.projects[lang] },
+    { href: "/contact", label: t.nav.contact[lang] },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -36,9 +40,7 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "glass shadow-lg"
-          : "bg-transparent"
+        scrolled ? "glass shadow-lg" : "bg-transparent"
       }`}
     >
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -74,7 +76,8 @@ export default function Header() {
         </div>
 
         {/* Desktop Actions */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-2">
+          <LanguageSwitcher />
           <ThemeToggle />
           <a
             href={RESUME_URL}
@@ -83,12 +86,13 @@ export default function Header() {
             className="btn-primary text-sm"
           >
             <FiDownload className="w-4 h-4" />
-            Resume
+            {t.nav.resume[lang]}
           </a>
         </div>
 
         {/* Mobile Toggle */}
-        <div className="flex md:hidden items-center gap-3">
+        <div className="flex md:hidden items-center gap-2">
+          <LanguageSwitcher />
           <ThemeToggle />
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -145,7 +149,7 @@ export default function Header() {
                   className="btn-primary w-full justify-center"
                 >
                   <FiDownload className="w-4 h-4" />
-                  Resume
+                  {t.nav.resume[lang]}
                 </a>
               </motion.div>
             </div>

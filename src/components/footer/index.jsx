@@ -2,9 +2,13 @@
 
 import Image from "next/image";
 import { socialLinks } from "@/data/social-links";
+import { useLang } from "@/context/language-context";
+import t from "@/data/translations";
 import shaxsiy from "../../../public/shaxsiy.jpg";
 
 export default function Footer() {
+  const { lang } = useLang();
+
   return (
     <footer className="border-t border-[var(--border)] bg-[var(--bg-secondary)]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
@@ -41,7 +45,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="mt-8 pt-6 border-t border-[var(--border)] text-center">
           <p className="text-sm text-[var(--text-secondary)]">
-            &copy; {new Date().getFullYear()} Ilyos Suyunov. All rights reserved.
+            &copy; {new Date().getFullYear()} Ilyos Suyunov. {t.footer.rights[lang]}
           </p>
         </div>
       </div>

@@ -10,19 +10,23 @@ import {
   FiSearch,
   FiLoader,
 } from "react-icons/fi";
-import { featuredRepos, categories } from "@/data/projects";
+import { featuredRepos } from "@/data/projects";
 import SectionHeading from "@/components/ui/section-heading";
 import MotionWrapper from "@/components/ui/motion-wrapper";
+import { useLang } from "@/context/language-context";
+import t from "@/data/translations";
 
 const GITHUB_API = "https://api.github.com/repos";
 
+const categoryKeys = ["all", "featured", "fullstack", "frontend", "backend", "tools"];
+
 export default function ProjectsPage() {
+  const { lang } = useLang();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("all");
   const [search, setSearch] = useState("");
 
-  // Fetch live data from GitHub API
   useEffect(() => {
     async function fetchGitHubData() {
       try {
@@ -48,7 +52,6 @@ export default function ProjectsPage() {
 
         const merged = results.map((result, i) => {
           if (result.status === "fulfilled") return result.value;
-          // Fallback if API fails
           return {
             ...featuredRepos[i],
             stars: 0,
@@ -62,7 +65,6 @@ export default function ProjectsPage() {
 
         setProjects(merged);
       } catch {
-        // If everything fails, use static data
         setProjects(
           featuredRepos.map((p) => ({
             ...p,
@@ -82,7 +84,6 @@ export default function ProjectsPage() {
     fetchGitHubData();
   }, []);
 
-  // Filter logic
   const filtered = projects.filter((p) => {
     const matchesCategory =
       activeCategory === "all" ||
@@ -124,48 +125,46 @@ export default function ProjectsPage() {
     <section className="section-padding">
       <div className="max-w-6xl mx-auto">
         <SectionHeading
-          title="My Projects"
-          subtitle="Real projects fetched live from my GitHub. Built with modern technologies to solve real problems."
+          title={t.projects.title[lang]}
+          subtitle={t.projects.subtitle[lang]}
         />
 
         {/* Search & Filters */}
         <MotionWrapper className="mb-10 space-y-4">
-          {/* Search */}
           <div className="relative max-w-md mx-auto">
             <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--text-secondary)]" />
             <input
               type="text"
-              placeholder="Search projects, languages..."
+              placeholder={t.projects.search[lang]}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="input-field pl-12"
             />
           </div>
 
-          {/* Category Tabs */}
           <div className="flex flex-wrap justify-center gap-2">
-            {categories.map((cat) => (
+            {categoryKeys.map((key) => (
               <button
-                key={cat.key}
-                onClick={() => setActiveCategory(cat.key)}
+                key={key}
+                onClick={() => setActiveCategory(key)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                  activeCategory === cat.key
+                  activeCategory === key
                     ? "bg-primary-500 text-white shadow-lg shadow-primary-500/25"
                     : "glass text-[var(--text-secondary)] hover:text-primary-500"
                 }`}
               >
-                {cat.label}
+                {t.projects.categories[key][lang]}
               </button>
             ))}
           </div>
         </MotionWrapper>
 
-        {/* Loading State */}
+        {/* Loading */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20 gap-4">
             <FiLoader className="w-8 h-8 text-primary-500 animate-spin" />
             <p className="text-[var(--text-secondary)] text-sm">
-              Fetching projects from GitHub...
+              {t.projects.loading[lang]}
             </p>
           </div>
         ) : (
@@ -173,11 +172,11 @@ export default function ProjectsPage() {
             {/* Results Count */}
             <div className="text-center mb-8">
               <p className="text-sm text-[var(--text-secondary)]">
-                Showing{" "}
+                {t.projects.showing[lang]}{" "}
                 <span className="font-semibold text-[var(--text-primary)]">
                   {filtered.length}
                 </span>{" "}
-                of {projects.length} projects
+                {t.projects.of[lang]} {projects.length}
               </p>
             </div>
 
@@ -197,16 +196,14 @@ export default function ProjectsPage() {
                     transition={{ duration: 0.3 }}
                   >
                     <div className="glass rounded-2xl p-6 h-full flex flex-col hover-lift group relative overflow-hidden">
-                      {/* Featured Badge */}
                       {project.featured && (
                         <div className="absolute top-4 right-4">
                           <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider gradient-bg text-white">
-                            Featured
+                            {t.projects.categories.featured[lang]}
                           </span>
                         </div>
                       )}
 
-                      {/* Header */}
                       <div className="flex items-start gap-3 mb-4">
                         <div className="p-2.5 rounded-xl bg-primary-500/10 shrink-0">
                           <FiGithub className="w-5 h-5 text-primary-500" />
@@ -229,7 +226,7 @@ export default function ProjectsPage() {
                               </span>
                               {project.updatedAt && (
                                 <span className="text-xs text-[var(--text-secondary)] ml-2">
-                                  Updated {timeAgo(project.updatedAt)}
+                                  {t.projects.updated[lang]} {timeAgo(project.updatedAt)}
                                 </span>
                               )}
                             </div>
@@ -237,12 +234,10 @@ export default function ProjectsPage() {
                         </div>
                       </div>
 
-                      {/* Description */}
                       <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-5 flex-1">
                         {project.description}
                       </p>
 
-                      {/* Topics */}
                       {project.topics?.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mb-4">
                           {project.topics.slice(0, 4).map((topic) => (
@@ -256,7 +251,6 @@ export default function ProjectsPage() {
                         </div>
                       )}
 
-                      {/* Footer */}
                       <div className="flex items-center justify-between pt-4 border-t border-[var(--border)]">
                         <div className="flex items-center gap-4 text-[var(--text-secondary)] text-sm">
                           <span className="flex items-center gap-1">
@@ -298,7 +292,6 @@ export default function ProjectsPage() {
               </AnimatePresence>
             </motion.div>
 
-            {/* Empty State */}
             {filtered.length === 0 && (
               <motion.div
                 initial={{ opacity: 0 }}
@@ -306,7 +299,7 @@ export default function ProjectsPage() {
                 className="text-center py-16"
               >
                 <p className="text-lg text-[var(--text-secondary)]">
-                  No projects found matching your criteria.
+                  {t.projects.noResults[lang]}
                 </p>
                 <button
                   onClick={() => {
@@ -315,12 +308,11 @@ export default function ProjectsPage() {
                   }}
                   className="mt-4 text-primary-500 hover:underline text-sm font-medium"
                 >
-                  Clear filters
+                  {t.projects.clearFilters[lang]}
                 </button>
               </motion.div>
             )}
 
-            {/* GitHub CTA */}
             <MotionWrapper variant="fadeUp" className="text-center mt-16">
               <a
                 href="https://github.com/suyunovdev?tab=repositories"
@@ -329,7 +321,7 @@ export default function ProjectsPage() {
                 className="btn-outline"
               >
                 <FiGithub className="w-5 h-5" />
-                View All Repositories on GitHub
+                {t.projects.viewAll[lang]}
               </a>
             </MotionWrapper>
           </>

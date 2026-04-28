@@ -2,8 +2,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { LanguageProvider } from "@/context/language-context";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const inter = Inter({ subsets: ["latin", "cyrillic"], variable: "--font-inter" });
 
 export const metadata = {
   title: {
@@ -44,15 +45,19 @@ export default function RootLayout({ children }) {
                 if (saved === 'dark' || (!saved && prefersDark)) {
                   document.documentElement.classList.add('dark');
                 }
+                var lang = localStorage.getItem('lang');
+                if (lang) document.documentElement.lang = lang;
               })();
             `,
           }}
         />
       </head>
       <body className={`${inter.variable} font-sans`}>
-        <Header />
-        <main className="min-h-screen pt-16">{children}</main>
-        <Footer />
+        <LanguageProvider>
+          <Header />
+          <main className="min-h-screen pt-16">{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

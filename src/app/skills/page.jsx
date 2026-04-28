@@ -3,14 +3,18 @@
 import { skillCategories } from "@/data/skills";
 import MotionWrapper from "@/components/ui/motion-wrapper";
 import SectionHeading from "@/components/ui/section-heading";
+import { useLang } from "@/context/language-context";
+import t from "@/data/translations";
 
 export default function SkillsPage() {
+  const { lang } = useLang();
+
   return (
     <section className="section-padding">
       <div className="max-w-5xl mx-auto">
         <SectionHeading
-          title="My Skills"
-          subtitle="Technologies and tools I use to bring ideas to life."
+          title={t.skills.title[lang]}
+          subtitle={t.skills.subtitle[lang]}
         />
 
         <div className="space-y-16">
@@ -19,7 +23,7 @@ export default function SkillsPage() {
               <MotionWrapper custom={catIdx}>
                 <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
                   <span className="w-8 h-1 rounded-full gradient-bg" />
-                  {category.title}
+                  {t.skills.categories[category.title]?.[lang] || category.title}
                 </h3>
               </MotionWrapper>
 
@@ -33,9 +37,7 @@ export default function SkillsPage() {
                     <div className="group glass rounded-xl p-5 flex flex-col items-center gap-3 hover-lift cursor-default">
                       <div
                         className="p-3 rounded-xl transition-all duration-300 group-hover:scale-110"
-                        style={{
-                          backgroundColor: `${skill.color}15`,
-                        }}
+                        style={{ backgroundColor: `${skill.color}15` }}
                       >
                         <skill.icon
                           className="w-8 h-8 transition-colors duration-300"

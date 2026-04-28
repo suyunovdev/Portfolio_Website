@@ -4,9 +4,13 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { FiArrowRight, FiGithub } from "react-icons/fi";
+import { useLang } from "@/context/language-context";
+import t from "@/data/translations";
 import shaxsiy from "../../public/shaxsiy.jpg";
 
 export default function HomePage() {
+  const { lang } = useLang();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Blobs */}
@@ -42,7 +46,7 @@ export default function HomePage() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium glass text-primary-500 mb-6">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            Available for work
+            {t.home.badge[lang]}
           </span>
         </motion.div>
 
@@ -53,7 +57,7 @@ export default function HomePage() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-5xl sm:text-7xl font-bold tracking-tight mb-6"
         >
-          Hi, I&apos;m{" "}
+          {t.home.greeting[lang]}{" "}
           <span className="gradient-text">Ilyos</span>
         </motion.h1>
 
@@ -64,11 +68,11 @@ export default function HomePage() {
           transition={{ delay: 0.4, duration: 0.6 }}
           className="text-xl sm:text-2xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Fullstack Developer building
+          {t.home.subtitle[lang]}
           <span className="text-[var(--text-primary)] font-semibold">
-            {" "}scalable, modern{" "}
+            {t.home.subtitleHighlight[lang]}
           </span>
-          web applications from frontend to backend.
+          {t.home.subtitleEnd[lang]}
         </motion.p>
 
         {/* CTA Buttons */}
@@ -79,7 +83,7 @@ export default function HomePage() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link href="/projects" className="btn-primary text-base">
-            View My Work
+            {t.home.cta[lang]}
             <FiArrowRight className="w-5 h-5" />
           </Link>
           <a
@@ -101,9 +105,9 @@ export default function HomePage() {
           className="mt-20 grid grid-cols-3 gap-8 max-w-md mx-auto"
         >
           {[
-            { value: "20+", label: "Projects" },
-            { value: "30+", label: "Skills" },
-            { value: "3+", label: "Years Exp." },
+            { value: "20+", label: t.home.stats.projects[lang] },
+            { value: "30+", label: t.home.stats.skills[lang] },
+            { value: "3+", label: t.home.stats.experience[lang] },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="text-3xl sm:text-4xl font-bold gradient-text">

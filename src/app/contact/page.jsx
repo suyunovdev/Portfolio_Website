@@ -9,13 +9,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { socialLinks } from "@/data/social-links";
 import SectionHeading from "@/components/ui/section-heading";
 import MotionWrapper from "@/components/ui/motion-wrapper";
+import { useLang } from "@/context/language-context";
+import t from "@/data/translations";
 
-// EmailJS credentials — replace with your own from https://emailjs.com
 const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID";
 const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
 const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY";
 
 export default function ContactPage() {
+  const { lang } = useLang();
   const formRef = useRef(null);
   const [sending, setSending] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -31,9 +33,8 @@ export default function ContactPage() {
 
     try {
       if (EMAILJS_SERVICE_ID === "YOUR_SERVICE_ID") {
-        // Demo mode — no real EmailJS configured
         await new Promise((r) => setTimeout(r, 1000));
-        toast.success("Message sent successfully! (Demo mode)");
+        toast.success(t.contact.successDemo[lang]);
       } else {
         await emailjs.sendForm(
           EMAILJS_SERVICE_ID,
@@ -41,11 +42,11 @@ export default function ContactPage() {
           formRef.current,
           EMAILJS_PUBLIC_KEY
         );
-        toast.success("Message sent successfully!");
+        toast.success(t.contact.success[lang]);
       }
       setForm({ name: "", email: "", message: "" });
     } catch {
-      toast.error("Failed to send message. Please try again.");
+      toast.error(t.contact.error[lang]);
     } finally {
       setSending(false);
     }
@@ -55,8 +56,8 @@ export default function ContactPage() {
     <section className="section-padding">
       <div className="max-w-5xl mx-auto">
         <SectionHeading
-          title="Get In Touch"
-          subtitle="Have a project in mind or want to collaborate? I'd love to hear from you."
+          title={t.contact.title[lang]}
+          subtitle={t.contact.subtitle[lang]}
         />
 
         <div className="grid md:grid-cols-5 gap-12">
@@ -65,10 +66,11 @@ export default function ContactPage() {
             <MotionWrapper variant="slideLeft">
               <div className="glass rounded-2xl p-6 space-y-6">
                 <div>
-                  <h3 className="text-lg font-bold mb-1">Let&apos;s Talk</h3>
+                  <h3 className="text-lg font-bold mb-1">
+                    {t.contact.talkTitle[lang]}
+                  </h3>
                   <p className="text-sm text-[var(--text-secondary)]">
-                    Feel free to reach out through the form or find me on social
-                    media.
+                    {t.contact.talkDesc[lang]}
                   </p>
                 </div>
 
@@ -110,10 +112,9 @@ export default function ContactPage() {
                 onSubmit={handleSubmit}
                 className="glass rounded-2xl p-6 sm:p-8 space-y-5"
               >
-                {/* Name */}
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Full Name
+                    {t.contact.name[lang]}
                   </label>
                   <div className="relative">
                     <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-secondary)]" />
@@ -124,16 +125,15 @@ export default function ContactPage() {
                       value={form.name}
                       onChange={handleChange}
                       required
-                      placeholder="John Doe"
+                      placeholder={t.contact.namePlaceholder[lang]}
                       className="input-field pl-11"
                     />
                   </div>
                 </div>
 
-                {/* Email */}
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Email Address
+                    {t.contact.email[lang]}
                   </label>
                   <div className="relative">
                     <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-secondary)]" />
@@ -144,16 +144,15 @@ export default function ContactPage() {
                       value={form.email}
                       onChange={handleChange}
                       required
-                      placeholder="john@example.com"
+                      placeholder={t.contact.emailPlaceholder[lang]}
                       className="input-field pl-11"
                     />
                   </div>
                 </div>
 
-                {/* Message */}
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Message
+                    {t.contact.message[lang]}
                   </label>
                   <div className="relative">
                     <FiMessageSquare className="absolute left-4 top-4 w-4 h-4 text-[var(--text-secondary)]" />
@@ -164,13 +163,12 @@ export default function ContactPage() {
                       value={form.message}
                       onChange={handleChange}
                       required
-                      placeholder="Tell me about your project..."
+                      placeholder={t.contact.messagePlaceholder[lang]}
                       className="input-field pl-11 resize-none"
                     />
                   </div>
                 </div>
 
-                {/* Submit */}
                 <motion.button
                   type="submit"
                   disabled={sending}
@@ -198,12 +196,12 @@ export default function ContactPage() {
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                         />
                       </svg>
-                      Sending...
+                      {t.contact.sending[lang]}
                     </>
                   ) : (
                     <>
                       <FiSend className="w-5 h-5" />
-                      Send Message
+                      {t.contact.send[lang]}
                     </>
                   )}
                 </motion.button>
