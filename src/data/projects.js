@@ -3,6 +3,51 @@
 
 export const featuredRepos = [
   {
+    repo: "suyunovdev/Ustoz",
+    name: "Ustoz",
+    description:
+      "Online education platform for connecting tutors and students — lessons, scheduling, and progress tracking. Built with Next.js and Neon Postgres.",
+    live: "https://ustozedu.uz/",
+    category: "fullstack",
+    featured: true,
+  },
+  {
+    repo: "suyunovdev/zyron-crm",
+    name: "Zyron CRM",
+    description:
+      "Full CRM for an education center (Aka-Uka) — students, groups, payments, attendance, and SMS notifications. TypeScript stack on a self-hosted VPS.",
+    live: "https://zyron-academy.vercel.app",
+    category: "fullstack",
+    featured: true,
+  },
+  {
+    repo: "suyunovdev/Bojxona",
+    name: "DeklarantAI",
+    description:
+      "AI-powered customs declaration assistant that helps declarants classify goods and prepare documents faster with automated guidance.",
+    live: "https://declarantai.com/",
+    category: "fullstack",
+    featured: true,
+  },
+  {
+    repo: "suyunovdev/xoztovar",
+    name: "Xoztovar POS",
+    description:
+      "Management system for a construction-materials store — POS, inventory, orders, SMS, and offline-ready PWA. Built with TypeScript.",
+    live: null,
+    category: "fullstack",
+    featured: true,
+  },
+  {
+    repo: "suyunovdev/Devpath-AI",
+    name: "Devpath AI",
+    description:
+      "AI assistant that builds personalized learning roadmaps for developers, recommending resources and tracking skill progression.",
+    live: null,
+    category: "fullstack",
+    featured: true,
+  },
+  {
     repo: "suyunovdev/Ustabozor.uz",
     name: "Ustabozor.uz",
     description:
