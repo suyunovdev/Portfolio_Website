@@ -264,15 +264,17 @@ export default function ProjectsPage() {
                         </div>
 
                         <div className="flex items-center gap-2">
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`${project.name} source code`}
-                            className="p-2 rounded-lg hover:bg-primary-500/10 text-[var(--text-secondary)] hover:text-primary-500 transition-all"
-                          >
-                            <FiGithub className="w-4 h-4" />
-                          </a>
+                          {!project.private && (
+                            <a
+                              href={project.githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`${project.name} source code`}
+                              className="p-2 rounded-lg hover:bg-primary-500/10 text-[var(--text-secondary)] hover:text-primary-500 transition-all"
+                            >
+                              <FiGithub className="w-4 h-4" />
+                            </a>
+                          )}
                           {project.live && (
                             <a
                               href={project.live}

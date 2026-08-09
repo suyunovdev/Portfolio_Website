@@ -28,24 +28,27 @@ export const featuredRepos = [
     live: "https://declarantai.com/",
     category: "fullstack",
     featured: true,
+    private: true,
   },
   {
     repo: "suyunovdev/xoztovar",
     name: "Xoztovar POS",
     description:
       "Management system for a construction-materials store — POS, inventory, orders, SMS, and offline-ready PWA. Built with TypeScript.",
-    live: null,
+    live: "https://x0ztovar.uz",
     category: "fullstack",
     featured: true,
+    private: true,
   },
   {
     repo: "suyunovdev/Devpath-AI",
     name: "Devpath AI",
     description:
       "AI assistant that builds personalized learning roadmaps for developers, recommending resources and tracking skill progression.",
-    live: null,
+    live: "https://devpathai.com",
     category: "fullstack",
     featured: true,
+    private: true,
   },
   {
     repo: "suyunovdev/Ustabozor.uz",
